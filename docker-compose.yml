@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   web:
@@ -11,8 +11,10 @@ services:
       - .:/code
     ports:
       - "8000:8000"
-    depends_on:
-      - nginx_server
+    environment:
+      - DOMAIN=${DOMAIN}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
     restart: always
 
   nginx_server:
@@ -27,6 +29,8 @@ services:
       - .:/code
     depends_on:
       - web
+    environment:
+      - DOMAIN=${DOMAIN}
     restart: always
 
   certbot:
@@ -37,6 +41,8 @@ services:
       - ./nginx/certbot/www:/var/www/certbot
     depends_on:
       - nginx_server
+    environment:
+      - DOMAIN=${DOMAIN}
     command: >
       certonly --webroot --webroot-path=/var/www/certbot
       --register-unsafely-without-email --agree-tos --no-eff-email
