@@ -15,8 +15,6 @@ services:
       - DOMAIN=${DOMAIN}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=${DJANGO_DEBUG}
-    depends_on:
-      - nginx_server
     restart: always
 
   nginx_server:
@@ -25,7 +23,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/www:/var/www/certbot
       - .:/code
     environment:
