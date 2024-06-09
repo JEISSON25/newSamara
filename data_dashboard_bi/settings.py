@@ -26,7 +26,6 @@ ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
     HOST,
     "http://django",
-    "https://samara.ingejei.com",
     "https://anidar.inventivalab.com",
 ]
 
@@ -60,8 +59,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://content.powerapps.com",
     "https://anidar.inventivalab.com",
     "http://anidar.inventivalab.com",
-    "https://samara.ingejei.com",
-    "http://samara.ingejei.com",
 ]
 
 
