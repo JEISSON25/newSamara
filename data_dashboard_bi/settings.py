@@ -16,9 +16,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure--tb8*f4mipg=r=*e(!&d_c4f^5ju!wtus@w*x$#rd%e0*1)y*5"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "False")
+DEBUG = os.environ.get("DJANGO_DEBUG", "")
 
-HOST = os.environ.get("DOMAIN", "https://samara.ingejei.com")
+# HOST = os.environ.get("DOMAIN", "https://samara.ingejei.com")
 
 
 ALLOWED_HOSTS = ["*"]
@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 #     "https://anidar.inventivalab.com",
 # ]
 
-CSRF_TRUSTED_ORIGINS = ["https://samara.ingejei.com"]
+CSRF_TRUSTED_ORIGINS = [f'https://{os.environ.get("DOMAIN", "")}']
 
 
 # CORS
@@ -41,7 +41,7 @@ CORS_EXPOSE_HEADERS = [
     "Access-Control-Allow-Methods",
     "Access-Control-Allow-Credentials",
 ]
-CORS_ORIGIN_WHITELIST = ("https://samara.ingejei.com")
+CORS_ORIGIN_WHITELIST = (f'https://{os.environ.get("DOMAIN", "")}')
 
 # CORS_ORIGIN_WHITELIST = (
 #     HOST,
@@ -52,7 +52,7 @@ CORS_ORIGIN_WHITELIST = ("https://samara.ingejei.com")
 #     "https://anidar.inventivalab.com",
 #     "http://anidar.inventivalab.com",
 # )
-CORS_ALLOWED_ORIGINS =  ["https://samara.ingejei.com"]
+CORS_ALLOWED_ORIGINS =  [f'https://{os.environ.get("DOMAIN", "")}']
 
 # CORS_ALLOWED_ORIGINS = [
 #     HOST,
@@ -92,8 +92,6 @@ INSTALLED_APPS = [
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
