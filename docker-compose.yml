@@ -31,7 +31,7 @@ services:
       - DOMAIN=${DOMAIN}
     depends_on:
       - web
-    restart: always
+    # restart: always
 
   certbot:
     image: certbot/certbot
