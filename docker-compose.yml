@@ -44,4 +44,5 @@ services:
     command: >
       certonly --webroot --webroot-path=/var/www/certbot
       --register-unsafely-without-email --agree-tos --no-eff-email
+      --force-renewal
       -d ${DOMAIN}
