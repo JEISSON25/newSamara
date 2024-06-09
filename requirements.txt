@@ -19,5 +19,6 @@ pillow==10.3.0
 django-tinymce==3.6.1
 django-import-export
 django-allauth
-gunicorn==21.1.0
 psycopg2-binary==2.9.1
+Django>=3.2,<4.0
+gunicorn

@@ -18,7 +18,7 @@ SECRET_KEY = "django-insecure--tb8*f4mipg=r=*e(!&d_c4f^5ju!wtus@w*x$#rd%e0*1)y*5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "False")
 
-HOST = os.environ.get("HOST", "https://samara.ingejei.com")
+HOST = os.environ.get("DOMAIN", "https://samara.ingejei.com")
 
 
 ALLOWED_HOSTS = ["*"]
@@ -109,8 +109,8 @@ SOCIALACCOUNT_PROVIDERS = {
     # },
     'microsoft': {
         'APP': {
-            'client_id': '',
-            'secret': '',
+            'client_id': os.environ.get("MICROSOFT_CLIENT_ID", ""),
+            'secret': os.environ.get("MICROSOFT_CLIENT_SECRET", ""),
             'key': ''
         },
         # 'AUTH_PARAMS': {
