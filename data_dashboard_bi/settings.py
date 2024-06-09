@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["*"]
 #     "https://anidar.inventivalab.com",
 # ]
 
-CSRF_TRUSTED_ORIGINS = ["*"]
+CSRF_TRUSTED_ORIGINS = [HOST]
 
 
 # CORS
@@ -41,7 +41,7 @@ CORS_EXPOSE_HEADERS = [
     "Access-Control-Allow-Methods",
     "Access-Control-Allow-Credentials",
 ]
-CORS_ORIGIN_WHITELIST = ["*"]
+CORS_ORIGIN_WHITELIST = [HOST]
 
 # CORS_ORIGIN_WHITELIST = (
 #     HOST,
@@ -52,7 +52,7 @@ CORS_ORIGIN_WHITELIST = ["*"]
 #     "https://anidar.inventivalab.com",
 #     "http://anidar.inventivalab.com",
 # )
-CORS_ALLOWED_ORIGINS =  ["*"]
+CORS_ALLOWED_ORIGINS =  [HOST]
 
 # CORS_ALLOWED_ORIGINS = [
 #     HOST,
