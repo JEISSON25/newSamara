@@ -20,4 +20,4 @@ django-tinymce==3.6.1
 django-import-export
 django-allauth
 psycopg2-binary==2.9.1
-gunicorn
+# gunicorn

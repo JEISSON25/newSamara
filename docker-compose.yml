@@ -5,45 +5,34 @@ services:
     build: .
     command: >
       sh -c "
-      python manage.py migrate"
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
       - ./static:/code/static
     ports:
       - "8000:8000"
     environment:
-      - DOMAIN=${DOMAIN}
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - DOMAIN
+      - DJANGO_SECRET_KEY
+      - DJANGO_DEBUG
+      - MICROSOFT_CLIENT_ID
+      - MICROSOFT_CLIENT_SECRET
+      - SITE_NAME
     restart: always
 
   nginx_server:
     build: ./nginx
     ports:
-      - "443:443"
       - "80:80"
     volumes:
-      # - ./nginx/certbot/www:/var/www/certbot
-      # - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/certbot/conf:/etc/letsencrypt
       - .:/code
-      # - ./static:/code/static
+      - ./static:/code/static
     environment:
-      - DOMAIN=${DOMAIN}
+      - DOMAIN
     depends_on:
       - web
     restart: always
-
-  # certbot:
-  #   image: certbot/certbot
-  #   volumes:
-  #     - ./nginx/certbot/www:/var/www/certbot
-  #     - ./nginx/certbot/conf:/etc/letsencrypt
-  #   depends_on:
-  #     - nginx_server
-  #   environment:
-  #     - DOMAIN=${DOMAIN}
-  #   command: >
-  #     certonly --webroot --webroot-path=/var/www/certbot
-  #     --register-unsafely-without-email --agree-tos --no-eff-email
-  #     --force-renewal
-  #     -d ${DOMAIN}
