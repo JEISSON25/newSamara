@@ -111,6 +111,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': os.environ.get("MICROSOFT_CLIENT_SECRET", ""),
             'key': ''
         },
+        'callback_url': 'https://samara.ingejei.com/accounts/microsoft/login/callback/',
         # 'AUTH_PARAMS': {
         #     'scope': 'email',
         # },
