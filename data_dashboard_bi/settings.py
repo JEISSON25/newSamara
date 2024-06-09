@@ -23,11 +23,13 @@ HOST = os.environ.get("DOMAIN", "https://samara.ingejei.com")
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = [
-    HOST,
-    "http://django",
-    "https://anidar.inventivalab.com",
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     HOST,
+#     "http://django",
+#     "https://anidar.inventivalab.com",
+# ]
+
+CSRF_TRUSTED_ORIGINS = ["*"]
 
 
 # CORS
@@ -39,25 +41,28 @@ CORS_EXPOSE_HEADERS = [
     "Access-Control-Allow-Methods",
     "Access-Control-Allow-Credentials",
 ]
-CORS_ORIGIN_WHITELIST = (
-    HOST,
-    "https://app.powerbi.com",
-    "http://app.powerbi.com",
-    "https://content.powerapps.com",
-    "http://content.powerapps.com",
-    "https://anidar.inventivalab.com",
-    "http://anidar.inventivalab.com",
-)
+CORS_ORIGIN_WHITELIST = ["*"]
 
-CORS_ALLOWED_ORIGINS = [
-    HOST,
-    "https://app.powerbi.com",
-    "http://app.powerbi.com",
-    "https://content.powerapps.com",
-    "http://content.powerapps.com",
-    "https://anidar.inventivalab.com",
-    "http://anidar.inventivalab.com",
-]
+# CORS_ORIGIN_WHITELIST = (
+#     HOST,
+#     "https://app.powerbi.com",
+#     "http://app.powerbi.com",
+#     "https://content.powerapps.com",
+#     "http://content.powerapps.com",
+#     "https://anidar.inventivalab.com",
+#     "http://anidar.inventivalab.com",
+# )
+CORS_ALLOWED_ORIGINS =  ["*"]
+
+# CORS_ALLOWED_ORIGINS = [
+#     HOST,
+#     "https://app.powerbi.com",
+#     "http://app.powerbi.com",
+#     "https://content.powerapps.com",
+#     "http://content.powerapps.com",
+#     "https://anidar.inventivalab.com",
+#     "http://anidar.inventivalab.com",
+# ]
 
 
 # Application definition
