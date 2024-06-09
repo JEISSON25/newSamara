@@ -47,8 +47,6 @@ CORS_ORIGIN_WHITELIST = (
     "http://content.powerapps.com",
     "https://anidar.inventivalab.com",
     "http://anidar.inventivalab.com",
-    "https://samara.ingejei.com",
-    "http://samara.ingejei.com",
 )
 
 CORS_ALLOWED_ORIGINS = [
