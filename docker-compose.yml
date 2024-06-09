@@ -5,8 +5,7 @@ services:
     build: .
     command: >
       sh -c "
-      python manage.py migrate &&
-      python manage.py collectstatic --noinput"
+      python manage.py migrate"
     volumes:
       - .:/code
       - ./static:/code/static
@@ -24,27 +23,27 @@ services:
       - "443:443"
       - "80:80"
     volumes:
-      - ./nginx/certbot/www:/var/www/certbot
-      - ./nginx/certbot/conf:/etc/letsencrypt
+      # - ./nginx/certbot/www:/var/www/certbot
+      # - ./nginx/certbot/conf:/etc/letsencrypt
       - .:/code
-      - ./static:/code/static
+      # - ./static:/code/static
     environment:
       - DOMAIN=${DOMAIN}
     depends_on:
       - web
     restart: always
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./nginx/certbot/www:/var/www/certbot
-      - ./nginx/certbot/conf:/etc/letsencrypt
-    depends_on:
-      - nginx_server
-    environment:
-      - DOMAIN=${DOMAIN}
-    command: >
-      certonly --webroot --webroot-path=/var/www/certbot
-      --register-unsafely-without-email --agree-tos --no-eff-email
-      --force-renewal
-      -d ${DOMAIN}
+  # certbot:
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./nginx/certbot/www:/var/www/certbot
+  #     - ./nginx/certbot/conf:/etc/letsencrypt
+  #   depends_on:
+  #     - nginx_server
+  #   environment:
+  #     - DOMAIN=${DOMAIN}
+  #   command: >
+  #     certonly --webroot --webroot-path=/var/www/certbot
+  #     --register-unsafely-without-email --agree-tos --no-eff-email
+  #     --force-renewal
+  #     -d ${DOMAIN}
