@@ -6,20 +6,15 @@ services:
     command: >
       sh -c "
       python manage.py migrate &&
-      python manage.py collectstatic --noinput &&
-      gunicorn data_dashboard_bi:application --bind 0.0.0.0:8000 --workers 3"
+      python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
-      - ./static:/code/static
     ports:
       - "8000:8000"
     environment:
-      - DOMAIN
-      - DJANGO_SECRET_KEY
-      - DJANGO_DEBUG
-      - MICROSOFT_CLIENT_ID
-      - MICROSOFT_CLIENT_SECRET
-      - SITE_NAME
+      - DOMAIN=${DOMAIN}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
     restart: always
 
   nginx_server:
@@ -31,9 +26,8 @@ services:
       - ./nginx/certbot/www:/var/www/certbot
       - ./nginx/certbot/conf:/etc/letsencrypt
       - .:/code
-      - ./static:/code/static
     environment:
-      - DOMAIN
+      - DOMAIN=${DOMAIN}
     depends_on:
       - web
     restart: always
@@ -41,15 +35,14 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
-      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
     depends_on:
       - nginx_server
     environment:
-      - DOMAIN
+      - DOMAIN=${DOMAIN}
     command: >
       certonly --webroot --webroot-path=/var/www/certbot
       --register-unsafely-without-email --agree-tos --no-eff-email
-      --staging
-      --force-renewal 
-      -d ${DOMAIN}
+      --staging -d ${DOMAIN}
