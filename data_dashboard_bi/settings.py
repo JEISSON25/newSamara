@@ -13,6 +13,8 @@ SECRET_KEY = "django-insecure--tb8*f4mipg=r=*e(!&d_c4f^5ju!wtus@w*x$#rd%e0*1)y*5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ALLOWED_HOSTS = ["*"]
 
 # CSRF settings
