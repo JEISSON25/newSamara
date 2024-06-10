@@ -14,12 +14,12 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DOMAIN
-      - DJANGO_SECRET_KEY
-      - DJANGO_DEBUG
-      - MICROSOFT_CLIENT_ID
-      - MICROSOFT_CLIENT_SECRET
-      - SITE_NAME
+      - DOMAIN=${DOMAIN}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - MICROSOFT_CLIENT_ID=${MICROSOFT_CLIENT_ID}
+      - MICROSOFT_CLIENT_SECRET=${MICROSOFT_CLIENT_SECRET}
+      - SITE_NAME=${SITE_NAME}
     restart: always
 
   nginx_server:
@@ -32,7 +32,7 @@ services:
       - .:/code
       - ./static:/code/static
     environment:
-      - DOMAIN
+      - DOMAIN=${DOMAIN}
     depends_on:
       - web
     restart: always
