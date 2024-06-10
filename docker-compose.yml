@@ -1,48 +1,49 @@
-version: '3.8'
+## docker-compose para django y posgrsql
+version: '3'
 
 services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - $DB_PORT:5432
+    ## volumes:
+      ##- ./data:/var/lib/postgresql/data
+    restart: always
+
   web:
     build: .
-    command: >
-      sh -c "
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+    #command: gunicorn --workers=5 --timeout 90000 --bind=0.0.0.0:8000 data_dashboard_bi.wsgi:application 
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
-    environment:
-      - DOMAIN=${DOMAIN}
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - "80:8000"
+    depends_on:
+      - db
     restart: always
 
   nginx_server:
-    build: ./nginx
+    image: nginx:1.21
     ports:
       - "443:443"
-      - "80:80"
     volumes:
-      - ./nginx/certbot/www:/var/www/certbot
-      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/conf.d:/etc/nginx/conf.d
       - .:/code
-    environment:
-      - DOMAIN=${DOMAIN}
     depends_on:
       - web
     restart: always
 
   certbot:
-    image: certbot/certbot
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/certbot/conf:/etc/letsencrypt
-      - ./nginx/certbot/www:/var/www/certbot
-    depends_on:
-      - nginx_server
-    environment:
-      - DOMAIN=${DOMAIN}
-    command: >
-      certonly --webroot --webroot-path=/var/www/certbot
-      --register-unsafely-without-email --agree-tos --no-eff-email
-      --staging -d ${DOMAIN}
+      image: certbot/certbot
+      volumes:
+        - ./nginx/conf.d:/etc/nginx/conf.d
+        - ./nginx/certbot/conf:/etc/letsencrypt
+        - ./nginx/certbot/www:/var/www/certbot
+      depends_on:
+        - nginx_server
+      command: certonly --webroot --webroot-path=/var/www/certbot --register-unsafely-without-email --agree-tos --no-eff-email --staging -d ${DOMAIN}
+
