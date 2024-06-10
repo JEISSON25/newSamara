@@ -22,35 +22,35 @@ services:
       - SITE_NAME
     restart: always
 
-  nginx_server:
-    build: ./nginx
-    ports:
-      - "443:443"
-      - "80:80"
-    volumes:
-      - ./nginx/certbot/www:/var/www/certbot
-      - ./nginx/certbot/conf:/etc/letsencrypt
-      - .:/code
-      - ./static:/code/static
-    environment:
-      - DOMAIN
-    depends_on:
-      - web
-    restart: always
+  # nginx_server:
+  #   build: ./nginx
+  #   ports:
+  #     - "443:443"
+  #     - "80:80"
+  #   volumes:
+  #     - ./nginx/certbot/www:/var/www/certbot
+  #     - ./nginx/certbot/conf:/etc/letsencrypt
+  #     - .:/code
+  #     - ./static:/code/static
+  #   environment:
+  #     - DOMAIN
+  #   depends_on:
+  #     - web
+  #   restart: always
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./nginx/certbot/www:/var/www/certbot
-      - ./nginx/certbot/conf:/etc/letsencrypt
-    depends_on:
-      - nginx_server
-    environment:
-      - DOMAIN
-    command: >
-      certonly --webroot --webroot-path=/var/www/certbot
-      --register-unsafely-without-email --agree-tos --no-eff-email
-      --break-my-certs
-      --force-renewal
-      --staging
-      -d ${DOMAIN}
+  # certbot:
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./nginx/certbot/www:/var/www/certbot
+  #     - ./nginx/certbot/conf:/etc/letsencrypt
+  #   depends_on:
+  #     - nginx_server
+  #   environment:
+  #     - DOMAIN
+  #   command: >
+  #     certonly --webroot --webroot-path=/var/www/certbot
+  #     --register-unsafely-without-email --agree-tos --no-eff-email
+  #     --break-my-certs
+  #     --force-renewal
+  #     --staging
+  #     -d ${DOMAIN}
