@@ -18,7 +18,7 @@ from django.conf import settings
 
 def logout(request):
     auth_logout(request)
-    return redirect('https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=http://localhost:8000/accounts/')
+    return redirect('https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=https://testdash.ingejei.com/accounts/')
 
 @method_decorator(login_required, name="dispatch")
 class IndexView(TemplateView):

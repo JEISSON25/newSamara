@@ -61,17 +61,26 @@ INSTALLED_APPS = [
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'microsoft': {
         'APP': {
-            'client_id': os.environ.get("MICROSOFT_CLIENT_ID", ""),
-            'secret': os.environ.get("MICROSOFT_CLIENT_SECRET", ""),
+            'client_id': os.environ.get('MICROSOFT_CLIENT_ID'),
+            'secret': os.environ.get('MICROSOFT_CLIENT_SECRET'),
             'key': ''
         },
-        'callback_url': f"https://{os.environ.get('DOMAIN')}/accounts/microsoft/login/callback/",
+		 'SCOPE': [
+            'openid',
+            'email',
+            'profile',
+            'User.Read',
+        ],
+        'AUTH_PARAMS': {
+            'response_type': 'code',
+        },
     }
 }
 
@@ -154,10 +163,10 @@ USE_TZ = True
 STATIC_URL = "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static/"),
-# ]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [
+     os.path.join(BASE_DIR, "static/"),
+]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
