@@ -68,8 +68,8 @@ LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_PROVIDERS = {
     'microsoft': {
         'APP': {
-            'client_id': os.environ.get('MICROSOFT_CLIENT_ID'),
-            'secret': os.environ.get('MICROSOFT_CLIENT_SECRET'),
+            'client_id': f"{os.environ.get('MICROSOFT_CLIENT_ID')}",
+            'secret': f"{os.environ.get('MICROSOFT_CLIENT_SECRET')}",
             'key': ''
         },
 		 'SCOPE': [
